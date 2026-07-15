@@ -18,7 +18,6 @@ hl.monitor({
 })
 
 -- Programs
-local terminal = "kitty"
 local fileManager = "dolphin"
 local menu = "hyprlauncher"
 
@@ -207,7 +206,7 @@ hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("noctalia msg brightness-up 5"), 
 hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("noctalia msg brightness-down 5"), { locked = true, repeating = true })
 
 -- Hyprland
-hl.bind("SUPER + return", hl.dsp.exec_cmd(terminal))
+hl.bind("SUPER + return", hl.dsp.exec_cmd("kitty"))
 hl.bind("SUPER + Q", hl.dsp.window.close())
 hl.bind("SUPER + CTRL + SHIFT + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
 hl.bind("SUPER + E", hl.dsp.exec_cmd(fileManager))
