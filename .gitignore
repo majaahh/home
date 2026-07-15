@@ -1,0 +1,5 @@
+# SPDX-FileCopyrightText: Maja Błaszczak
+# SPDX-License-Identifier: Apache-2.0
+
+# Nvim
+.config/nvim/lazy-lock.json
