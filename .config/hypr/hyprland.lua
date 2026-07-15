@@ -146,7 +146,7 @@ hl.config({
 -- Input
 hl.config({
     input = {
-        kb_layout = "us",
+        kb_layout = "pl",
         kb_variant = "",
         kb_model = "",
         kb_options = "",
