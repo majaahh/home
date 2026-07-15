@@ -5,3 +5,7 @@
 
 # Nvim
 .config/nvim/lazy-lock.json
+
+# Tools
+*.out
+fnd
