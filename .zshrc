@@ -70,6 +70,8 @@ EXPORT_PATH \
     "$HOME/.local/lib" \
     "$HOME/.local/share/flatpak/exports/share/applications"
 
+eval "$(oh-my-posh init zsh --config "$HOME/.config/oh-my-posh/EDM115-newline.omp.json")"
+
 setopt auto_cd
 setopt correct_all
 setopt hist_reduce_blanks
