@@ -25,25 +25,17 @@ vim.g.maplocalleader = "\\"
 
 require("lazy").setup({
 	spec = {
-		{ "BurntSushi/ripgrep" },
 		{ "catppuccin/nvim", as = "catppuccin" },
 		{ "folke/noice.nvim" },
-		{ "goolord/alpha-nvim" },
 		{ "hrsh7th/cmp-buffer" },
-		{ "hrsh7th/cmp-emoji" },
 		{ "hrsh7th/cmp-nvim-lsp" },
 		{ "hrsh7th/cmp-path" },
 		{ "hrsh7th/nvim-cmp" },
-		{ "L3MON4D3/LuaSnip" },
-		{ "leafgarland/typescript-vim" },
-		{ "leafOfTree/vim-svelte-plugin" },
-		{ "lervag/vimtex" },
+		{ "L3MON4D3/LuaSnip", build = "make install_jsregexp" },
 		{ "MDNSSKNGHT/smali.vim" },
-		{ "mrcjkb/rustaceanvim" },
 		{ "mrloop/telescope-git-branch.nvim" },
 		{ "MunifTanjim/nui.nvim" },
 		{ "neovim/nvim-lspconfig" },
-		{ "nvim-lua/plenary.nvim" },
 		{ "nvim-lualine/lualine.nvim" },
 		{ "nvim-telescope/telescope.nvim" },
 		{ "nvim-tree/nvim-tree.lua" },
@@ -51,13 +43,9 @@ require("lazy").setup({
 		{ "nvim-treesitter/nvim-treesitter" },
 		{ "onsails/lspkind.nvim" },
 		{ "OXY2DEV/markview.nvim" },
-		{ "peitalin/vim-jsx-typescript" },
-		{ "prisma/vim-prisma" },
 		{ "rafamadriz/friendly-snippets" },
 		{ "rcarriga/nvim-notify" },
-		{ "romgrk/barbar.nvim" },
 		{ "saadparwaiz1/cmp_luasnip" },
-		{ "sakhnik/nvim-gdb" },
 		{ "sbdchd/neoformat" },
 		{ "tpope/vim-commentary" },
 		{ "WhoIsSethDaniel/mason-tool-installer.nvim", build = ":MasonToolsInstall" },
@@ -85,13 +73,11 @@ require("markview").setup({
 
 -- CMP
 local cmp = require("cmp")
-local luasnip = require("luasnip")
-local lspkind = require("lspkind")
 
 cmp.setup({
 	snippet = {
 		expand = function(args)
-			luasnip.lsp_expand(args.body)
+			require("luasnip").lsp_expand(args.body)
 		end,
 	},
 	mapping = cmp.mapping.preset.insert({
@@ -124,14 +110,16 @@ cmp.setup({
 		{ name = "nvim_lsp" },
 		{ name = "buffer" },
 		{ name = "path" },
-		{ name = "emoji" },
+	}),
+	sources = cmp.config.sources({
+		{ name = "luasnip" },
+		{ name = "nvim_lsp" },
+		{ name = "buffer" },
+		{ name = "path" },
 	}),
 	window = {
 		completion = cmp.config.window.bordered(),
 		documentation = cmp.config.window.bordered(),
-	},
-	experimental = {
-		ghost_text = false,
 	},
 })
 
@@ -149,7 +137,7 @@ require("luasnip.loaders.from_vscode").lazy_load()
 -- Mason
 require("mason").setup()
 require("mason-lspconfig").setup({
-	ensure_installed = { "pyright", "ts_ls", "html", "bashls", "zls" },
+	ensure_installed = { "ts_ls", "html", "bashls", "zls", "ruff" },
 	automatic_installation = true,
 })
 require("mason-tool-installer").setup({
@@ -168,12 +156,20 @@ require("mason-tool-installer").setup({
 })
 
 -- LSP
-vim.lsp.config("pyright", {})
 vim.lsp.config("html", {})
 vim.lsp.config("bashls", {})
 vim.lsp.config("zls", {})
+vim.lsp.config("ruff", {
+	settings = {
+		ruff = {
+			lint = {
+				select = { "E", "F" },
+			},
+		},
+	},
+})
 
-vim.lsp.enable({ "pyright", "html", "bashls", "zls" })
+vim.lsp.enable({ "html", "bashls", "zls", "ruff" })
 
 -- Auto Pairs
 require("nvim-autopairs").setup({})
@@ -279,28 +275,6 @@ require("nvim-cursorline").setup({
 	},
 })
 
--- Barbar
-vim.g.barbar_auto_setup = false
-require("barbar").setup({
-	animation = true,
-	clickable = true,
-	maximum_padding = 1,
-	minimum_padding = 1,
-	maximum_length = 30,
-	gitsigns = {
-		added = { enabled = true, icon = "+" },
-		changed = { enabled = true, icon = "~" },
-		deleted = { enabled = true, icon = "-" },
-	},
-	filetype = {
-		custom_colors = false,
-		enabled = true,
-	},
-	sidebar_filetypes = {
-		NvimTree = true,
-	},
-})
-
 -- Notify
 require("notify").setup({
 	background_colour = "#000000",
@@ -313,29 +287,6 @@ map("n", "<Space>f", ":Neoformat<CR>", des("Format code"))
 map("n", "<Space>gb", ":Telescope git_branches<CR>", des("Git Branches"))
 map("n", "<Space>gt", ":Telescope git_status<CR>", des("Git Status"))
 map("n", "<Space>th", ":Telescope find_files<CR>", des("Find Files"))
-
--- Barbar
-map("n", "<A-,>", "<Cmd>BufferPrevious<CR>", opts)
-map("n", "<A-.>", "<Cmd>BufferNext<CR>", opts)
-map("n", "<A-1>", "<Cmd>BufferGoto 1<CR>", opts)
-map("n", "<A-2>", "<Cmd>BufferGoto 2<CR>", opts)
-map("n", "<A-3>", "<Cmd>BufferGoto 3<CR>", opts)
-map("n", "<A-4>", "<Cmd>BufferGoto 4<CR>", opts)
-map("n", "<A-5>", "<Cmd>BufferGoto 5<CR>", opts)
-map("n", "<A-6>", "<Cmd>BufferGoto 6<CR>", opts)
-map("n", "<A-7>", "<Cmd>BufferGoto 7<CR>", opts)
-map("n", "<A-8>", "<Cmd>BufferGoto 8<CR>", opts)
-map("n", "<A-9>", "<Cmd>BufferGoto 9<CR>", opts)
-map("n", "<A-0>", "<Cmd>BufferLast<CR>", opts)
-map("n", "<A-p>", "<Cmd>BufferPin<CR>", opts)
-map("n", "<A-c>", "<Cmd>BufferClose<CR>", opts)
-map("n", "<C-p>", "<Cmd>BufferPick<CR>", opts)
-map("n", "<C-s-p>", "<Cmd>BufferPickDelete<CR>", opts)
-map("n", "<Space>bb", "<Cmd>BufferOrderByBufferNumber<CR>", opts)
-map("n", "<Space>bn", "<Cmd>BufferOrderByName<CR>", opts)
-map("n", "<Space>bd", "<Cmd>BufferOrderByDirectory<CR>", opts)
-map("n", "<Space>bl", "<Cmd>BufferOrderByLanguage<CR>", opts)
-map("n", "<Space>bw", "<Cmd>BufferOrderByWindowNumber<CR>", opts)
 
 -- Nvim Tree
 map("n", "<C-n>", ":NvimTreeToggle<CR>", opts)
