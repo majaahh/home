@@ -135,6 +135,14 @@ cmp.setup({
   },
 })
 
+-- Stylua
+vim.g.neoformat_lua_stylua = {
+  exe = "stylua",
+  args = { "--search-parent-directories", "--stdin-filepath", "%:p", "-" },
+  stdin = 1,
+}
+vim.g.neoformat_enabled_lua = { "stylua" }
+
 -- LuaSnip
 require("luasnip.loaders.from_vscode").lazy_load()
 
@@ -147,6 +155,7 @@ require("mason-lspconfig").setup({
 require('mason-tool-installer').setup {
   ensure_installed = {
     { "bash-language-server" },
+    { "stylua" },
     { "cmakelang" },
     { "cmakelint" },
   },
@@ -297,6 +306,9 @@ require('barbar').setup {
 require("notify").setup({
   background_colour = "#000000",
 })
+
+-- Formatting
+map("n", "<Space>f", ":Neoformat<CR>", des("Format code"))
 
 -- Telescope
 map("n", "<Space>gb", ":Telescope git_branches<CR>", des("Git Branches"))
