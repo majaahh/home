@@ -43,6 +43,9 @@ struct Options {
   EntryType type = EntryType::Any;
 };
 
+const char *const kErrPre = "\033[31m! ";
+const char *const kErrSuf = "\033[0m";
+
 void print_usage(const char *prog) {
   std::cout
       << "Usage: " << prog << " <name> [path...] [options]\n"
@@ -103,8 +106,8 @@ void walk_directory(const fs::path &root_path, const Options &opts) {
   fs::recursive_directory_iterator end;
 
   if (ec) {
-    std::cerr << "E: Cannot open directory " << root_path << ": "
-              << ec.message() << '\n';
+    std::cerr << kErrPre << "Cannot open directory " << root_path << ": "
+              << ec.message() << kErrSuf << '\n';
     return;
   }
 
@@ -118,7 +121,7 @@ void walk_directory(const fs::path &root_path, const Options &opts) {
     if (!matches_type(entry, opts.type)) {
       it.increment(ec);
       if (ec) {
-        std::cerr << "E: " << ec.message() << '\n';
+        std::cerr << kErrPre << ec.message() << kErrSuf << '\n';
         ec.clear();
       }
       continue;
@@ -140,7 +143,7 @@ void walk_directory(const fs::path &root_path, const Options &opts) {
     if (ec) {
       // Skip whatever caused the error (e.g. race/removal, denied) and
       // keep walking rather than aborting the whole search.
-      std::cerr << "E: " << ec.message() << '\n';
+      std::cerr << kErrPre << ec.message() << kErrSuf << '\n';
       ec.clear();
     }
   }
@@ -186,22 +189,24 @@ int main(int argc, char *argv[]) {
       opts.print_full_path = true;
     } else if (arg == "-d" || arg == "--max-depth") {
       if (i + 1 >= argc) {
-        std::cerr << "E: " << arg << " requires a value\n";
+        std::cerr << kErrPre << arg << " requires a value" << kErrSuf << '\n';
         return 1;
       }
       try {
         opts.max_depth = std::stoi(argv[++i]);
       } catch (const std::exception &) {
-        std::cerr << "E: Invalid depth value: " << argv[i] << '\n';
+        std::cerr << kErrPre << "Invalid depth value: " << argv[i] << kErrSuf
+                  << '\n';
         return 1;
       }
     } else if (arg == "-t" || arg == "--type") {
       if (i + 1 >= argc || !parse_type(argv[++i], opts.type)) {
-        std::cerr << "E: --type requires one of: f, d, l\n";
+        std::cerr << kErrPre << "--type requires one of: f, d, l" << kErrSuf
+                  << '\n';
         return 1;
       }
     } else if (!arg.empty() && arg[0] == '-' && arg != "-") {
-      std::cerr << "E: Unknown option: " << arg << '\n';
+      std::cerr << kErrPre << "Unknown option: " << arg << kErrSuf << '\n';
       return 1;
     } else {
       positional.push_back(arg);
@@ -209,7 +214,8 @@ int main(int argc, char *argv[]) {
   }
 
   if (positional.empty()) {
-    std::cerr << "E: Missing required <filename> pattern\n";
+    std::cerr << kErrPre << "Missing required <filename> pattern" << kErrSuf
+              << '\n';
     print_usage(argv[0]);
     return 1;
   }
@@ -224,7 +230,8 @@ int main(int argc, char *argv[]) {
   for (const auto &p : opts.search_paths) {
     std::error_code ec;
     if (!fs::is_directory(p, ec) || ec) {
-      std::cerr << "E: Path not found or not a directory: " << p << '\n';
+      std::cerr << kErrPre << "Path not found or not a directory: " << p
+                << kErrSuf << '\n';
       continue;
     }
     any_valid = true;
