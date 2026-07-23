@@ -355,6 +355,7 @@ vim.opt.number = true
 vim.opt.expandtab = true
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
 vim.opt.clipboard = "unnamedplus"
 vim.g.mapleader = " "
 vim.cmd.set("timeout timeoutlen=3000 ttimeoutlen=100")
