@@ -148,7 +148,7 @@ hl.config({
 
         follow_mouse = 1,
 
-        sensitivity = 0,
+        sensitivity = 0.2,
 
         repeat_rate = 45,
         repeat_delay = 200,
