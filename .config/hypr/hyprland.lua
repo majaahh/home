@@ -238,6 +238,12 @@ hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
 -- https://wiki.hypr.land/Configuring/Basics/Window-Rules/
 -- https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
 
+hl.window_rule({
+	name = "float-scrcpy",
+	match = { class = "scrcpy" },
+	float = true,
+})
+
 local suppressMaximizeRule = hl.window_rule({
 	name = "suppress-maximize-events",
 	match = { class = ".*" },
