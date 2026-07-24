@@ -129,20 +129,6 @@ hl.config({
 	},
 })
 
--- https://wiki.hypr.land/Configuring/Layouts/Master-Layout/
-hl.config({
-	master = {
-		new_status = "master",
-	},
-})
-
--- https://wiki.hypr.land/Configuring/Layouts/Scrolling-Layout/
-hl.config({
-	scrolling = {
-		fullscreen_on_one_column = true,
-	},
-})
-
 -- Miscellaneous
 hl.config({
 	misc = {
