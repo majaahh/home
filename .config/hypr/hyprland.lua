@@ -153,6 +153,13 @@ hl.config({
 	},
 })
 
+-- Cursor
+hl.config({
+	cursor = {
+		min_refresh_rate = 60,
+	},
+})
+
 -- Input
 hl.config({
 	input = {
