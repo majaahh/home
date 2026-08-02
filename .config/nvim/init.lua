@@ -66,6 +66,21 @@ local des = function(desc)
 	return { noremap = true, silent = true, desc = desc }
 end
 
+-- Treesitter
+require("nvim-treesitter").setup()
+require("nvim-treesitter").install({
+	"markdown",
+	"lua",
+	"vim",
+	"vimdoc",
+	"bash",
+	"python",
+	"html",
+	"javascript",
+	"typescript",
+	"zig",
+})
+
 -- Markview
 require("markview").setup({
 	experimental = {
@@ -106,12 +121,6 @@ cmp.setup({
 				fallback()
 			end
 		end, { "i", "s" }),
-	}),
-	sources = cmp.config.sources({
-		{ name = "luasnip" },
-		{ name = "nvim_lsp" },
-		{ name = "buffer" },
-		{ name = "path" },
 	}),
 	sources = cmp.config.sources({
 		{ name = "luasnip" },
