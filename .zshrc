@@ -3,15 +3,6 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # [
-EXPORT_PATH()
-{
-    for d in "$@"; do
-        if [[ -d "$d" ]]; then
-            export PATH="$PATH:$d"
-        fi
-    done
-}
-
 export ZSH="$HOME/.oh-my-zsh"
 # ]
 
@@ -62,11 +53,18 @@ alias ins="$ROOT emerge -navq"
 alias sup="$ROOT emerge --sync && doas emerge -avq --changed-use --newuse --update --deep @world"
 alias up="$ROOT emerge -avq --changed-use --newuse --update --deep @world"
 
-EXPORT_PATH \
-    "$HOME/.bin" \
-    "$HOME/.local/bin" \
-    "$HOME/.local/lib" \
-    "$HOME/.local/share/flatpak/exports/share/applications"
+PATHS=(
+     "$HOME/.bin" "$HOME/.local/bin" "$HOME/.local/lib"
+     "$HOME/.local/share/flatpak/exports/share/applications"
+)
+
+for i in "${PATHS[@]}"; do
+    if [[ -d "$i" ]]; then
+        if [[ "$PATH" != *"$i"* ]]; then
+             export PATH="$i:$PATH"
+        fi
+    fi
+done
 
 eval "$(oh-my-posh init zsh --config "$HOME/.config/oh-my-posh/EDM115-newline.omp.json")"
 
@@ -75,3 +73,5 @@ setopt correct_all
 setopt hist_reduce_blanks
 setopt hist_ignore_space
 setopt hist_save_no_dups
+
+unset PATHS
