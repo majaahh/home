@@ -1,0 +1,55 @@
+#
+# SPDX-FileCopyrightText: Majaahh
+# SPDX-License-Identifier: Apache-2.0
+#
+
+[accessibility]
+ui_scale = 1.0500000081956387
+
+[bar.default]
+end = [
+    "media",
+    "tray",
+    "notifications",
+    "network",
+    "bluetooth",
+    "volume",
+    "brightness",
+    "battery",
+    "control-center",
+    "session"
+]
+font_family = "Google Sans Flex"
+font_weight = 600
+margin_edge = 8
+margin_ends = 10
+radius = 11
+scale = 1.1000000089406967
+shadow = false
+start = [ "launcher", "workspaces" ]
+
+[desktop_widgets]
+enabled = false
+
+[shell]
+font_family = "Google Sans Flex"
+
+[theme]
+builtin = "Ayu"
+community_palette = "Oxocarbon"
+mode = "dark"
+pure_black_dark = true
+source = "builtin"
+wallpaper_scheme = "m3-content"
+
+    [theme.templates]
+    builtin_ids = [ "btop" ]
+
+[wallpaper.default]
+path = "/usr/share/noctalia/assets/noctalia-wallpaper.png"
+
+[wallpaper.last]
+path = "/usr/share/noctalia/assets/noctalia-wallpaper.png"
+
+[widget.network]
+show_label = false
