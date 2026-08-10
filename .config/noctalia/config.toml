@@ -51,5 +51,8 @@ path = "/usr/share/noctalia/assets/noctalia-wallpaper.png"
 [wallpaper.last]
 path = "/usr/share/noctalia/assets/noctalia-wallpaper.png"
 
+[widget.media]
+hide_when_no_media = true
+
 [widget.network]
 show_label = false
