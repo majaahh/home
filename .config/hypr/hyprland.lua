@@ -8,12 +8,11 @@
 
 -- Monitors
 -- https://wiki.hypr.land/Configuring/Basics/Monitors/
-hl.monitor({
-	output = "",
-	mode = "preferred",
-	position = "auto",
-	scale = "1",
-})
+local status, value = pcall(require, "monitor")
+if not status then
+	print("failed to load module: monitor")
+	print(value)
+end
 
 -- Autostart
 -- https://wiki.hypr.land/Configuring/Basics/Autostart/
