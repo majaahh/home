@@ -31,7 +31,7 @@ alias l="ls"
 alias la="ls -a"
 alias rm="doas rm"
 alias cp="cp -rfa"
-alias v="$EDITOR"
+alias v="nvim"
 
 alias gcl="git clone -j$(nproc --all)"
 alias gad="git add"
