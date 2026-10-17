@@ -47,9 +47,9 @@ alias gma="git merge --abort"
 alias gre="git restore"
 alias glo="git --no-pager log --oneline"
 
-alias ins="$ROOT emerge -navq"
-alias sup="$ROOT emerge --sync && doas emerge -avq --changed-use --newuse --update --deep @world"
-alias up="$ROOT emerge -avq --changed-use --newuse --update --deep @world"
+alias ins="doas emerge -navq"
+alias sup="doas emerge --sync && doas emerge -avuDN @world"
+alias up="doas emerge -avuDN @world"
 
 PATHS=(
      "$HOME/.bin" "$HOME/.local/bin" "$HOME/.local/lib"
