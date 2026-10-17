@@ -65,7 +65,7 @@ done
 
 eval "$(oh-my-posh init zsh --config "$HOME/.config/oh-my-posh/EDM115-newline.omp.json")"
 
-SAVEHIST=$(( ~(1 << 63) ))
+SAVEHIST=50000
 
 setopt auto_cd
 setopt correct_all
