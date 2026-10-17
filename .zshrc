@@ -47,7 +47,6 @@ alias gma="git merge --abort"
 alias gre="git restore"
 alias glo="git --no-pager log --oneline"
 
-alias ins="doas emerge -navq"
 alias sup="doas emerge --sync && doas emerge -avuDN @world"
 alias up="doas emerge -avuDN @world"
 
