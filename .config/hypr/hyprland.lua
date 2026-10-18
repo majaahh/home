@@ -20,6 +20,7 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("gentoo-pipewire-launcher restart &")
 	hl.exec_cmd("kitty")
 	hl.exec_cmd("noctalia")
+	hl.exec_cmd("thunderbird")
 end)
 
 -- Variables
