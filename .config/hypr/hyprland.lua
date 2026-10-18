@@ -17,6 +17,7 @@ end
 
 hl.on("hyprland.start", function()
 	hl.exec_cmd("cider")
+	hl.exec_cmd("easyeffects")
 	hl.exec_cmd("firefox")
 	hl.exec_cmd("gentoo-pipewire-launcher restart &")
 	hl.exec_cmd("kitty")
