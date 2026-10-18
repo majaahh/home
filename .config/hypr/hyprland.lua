@@ -18,6 +18,7 @@ end
 hl.on("hyprland.start", function()
 	hl.exec_cmd("firefox")
 	hl.exec_cmd("gentoo-pipewire-launcher restart &")
+	hl.exec_cmd("kitty")
 	hl.exec_cmd("noctalia")
 end)
 
