@@ -20,7 +20,7 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("easyeffects")
 	hl.exec_cmd("firefox")
 	hl.exec_cmd("gentoo-pipewire-launcher restart &")
-	hl.exec_cmd("kitty")
+	hl.exec_cmd("kitty --class kitty-startup")
 	hl.exec_cmd("noctalia")
 	hl.exec_cmd("thunderbird")
 end)
@@ -231,6 +231,30 @@ hl.bind("SUPER + mouse:273", hl.dsp.window.resize(), { mouse = true })
 -- Windows and workspaces
 -- https://wiki.hypr.land/Configuring/Basics/Window-Rules/
 -- https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
+
+hl.window_rule({
+	name = "firefox-workspace",
+	match = { class = "firefox" },
+	workspace = "1",
+})
+
+hl.window_rule({
+	name = "startup-kitty-workspace",
+	match = { class = "kitty-startup" },
+	workspace = "3",
+})
+
+hl.window_rule({
+	name = "cider-workspace",
+	match = { class = "cider" },
+	workspace = "4",
+})
+
+hl.window_rule({
+	name = "easyeffects-workspace",
+	match = { class = "com.github.wwmm.easyeffects" },
+	workspace = "10",
+})
 
 hl.window_rule({
 	name = "float-scrcpy",
